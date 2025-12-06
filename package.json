@@ -1,0 +1,32 @@
+{
+  "name": "kurtify",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "check": "oxlint",
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev:native": "turbo -F native dev",
+    "dev:web": "turbo -F web dev",
+    "dev:server": "turbo -F server dev",
+    "db:push": "turbo -F @kurtify/db db:push",
+    "db:studio": "turbo -F @kurtify/db db:studio",
+    "db:generate": "turbo -F @kurtify/db db:generate",
+    "db:migrate": "turbo -F @kurtify/db db:migrate"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.4",
+    "oxlint": "^1.12.0",
+    "@types/node": "^22.13.11"
+  },
+  "packageManager": "pnpm@10.18.3"
+}
