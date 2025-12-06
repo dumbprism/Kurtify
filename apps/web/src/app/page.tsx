@@ -3,9 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { trpc } from "@/utils/trpc";
 import { ShoppingBag, Heart, User, Search, ArrowRight, Menu, X, Sparkles } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const healthCheck = useQuery(trpc.healthCheck.queryOptions());
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState(null);
@@ -45,7 +47,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <>
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
         
@@ -72,6 +74,8 @@ export default function Home() {
           animation: fadeInUp 0.8s ease-out forwards;
         }
       `}</style>
+
+      <div className="min-h-screen bg-black text-white">
 
       {/* Floating Menu Button */}
       <button
@@ -153,7 +157,7 @@ export default function Home() {
 
       {/* Hero Section with Carousel */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-linear-to-b from-black via-gray-900/50 to-black opacity-60 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black opacity-60 z-10"></div>
         
         {/* Carousel Images */}
         {heroImages.map((image, index) => (
@@ -173,7 +177,6 @@ export default function Home() {
         
         <div className="relative z-10 text-center max-w-5xl px-6 opacity-0 animate-fade-in-up">
           <div className="flex justify-center mb-6">
-            {/* <Sparkles className="w-8 h-8 text-white/60" /> */}
           </div>
           <h2 className="text-7xl md:text-8xl lg:text-9xl font-serif-elegant mb-6 tracking-tight leading-none">
             Kurtify
@@ -183,7 +186,9 @@ export default function Home() {
           </p>
           <button className="group relative px-12 py-4 border border-white hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest text-sm font-light overflow-hidden">
             <span className="relative z-10 flex items-center justify-center">
-              Explore Collection
+				<a href="/collection">
+	              Explore Collection
+				</a>
               <ArrowRight className="ml-3 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
             </span>
           </button>
@@ -203,7 +208,6 @@ export default function Home() {
         </div>
         
         <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center z-20">
-          {/* <div className="w-px h-16 bg-white/30 mx-auto mb-2"></div> */}
           <p className="text-xs tracking-widest uppercase text-white/40">Scroll</p>
         </div>
       </section>
@@ -222,6 +226,7 @@ export default function Home() {
               className="relative h-[600px] overflow-hidden group cursor-pointer"
               onMouseEnter={() => setHoveredCategory(index)}
               onMouseLeave={() => setHoveredCategory(null)}
+              onClick={() => router.push('/collection')}
             >
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-700 z-10"></div>
               <img 
@@ -254,6 +259,7 @@ export default function Home() {
               <div 
                 key={index}
                 className="group cursor-pointer"
+                onClick={() => router.push('/collections')}
               >
                 <div className="relative overflow-hidden mb-6 aspect-[3/4] bg-gray-100">
                   <img 
@@ -342,7 +348,7 @@ export default function Home() {
           </div>
           
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/30 tracking-widest uppercase">
-            <p>© 202 Kurtify. All Rights Reserved.</p>
+            <p>© 2024 Kurtify. All Rights Reserved.</p>
             {healthCheck.data && (
               <p className="mt-4 md:mt-0">System Connected</p>
             )}
@@ -350,5 +356,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }

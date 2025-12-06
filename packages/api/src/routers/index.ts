@@ -1,4 +1,5 @@
 import { protectedProcedure, publicProcedure, router } from "../index";
+import { productsRouter, collectionsRouter } from "./products";
 
 export const appRouter = router({
 	healthCheck: publicProcedure.query(() => {
@@ -10,5 +11,8 @@ export const appRouter = router({
 			user: ctx.session.user,
 		};
 	}),
+	// Products from Payload CMS
+	products: productsRouter,
+	collections: collectionsRouter,
 });
 export type AppRouter = typeof appRouter;

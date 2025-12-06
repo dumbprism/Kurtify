@@ -1,0 +1,34 @@
+# Node
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Payload
+.payload/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build
+dist/
+build/
+
+# Media uploads
+public/media/
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
