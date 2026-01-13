@@ -26,20 +26,20 @@ export default function Collections() {
   const products = [
     // Office Wear
     { id: 1, name: "Professional Elegance", category: "office", price: "2,499", colors: ["#1a1a1a", "#2c4a6b", "#4a3c32"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&h=800&fit=crop&q=80", rating: 4.8, reviews: 124, description: "A sophisticated kurti perfect for the modern professional. Tailored fit with subtle detailing that exudes confidence.", fabric: "Premium Cotton Blend", care: "Machine wash cold, Do not bleach" },
-    { id: 2, name: "Corporate Chic", category: "office", price: "2,799", colors: ["#000000", "#8b4513", "#2f4f4f"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1583391733981-4bfd7d2b2825?w=600&h=800&fit=crop&q=80", rating: 4.9, reviews: 89, description: "Minimalist design meets maximum impact. Perfect for board meetings and client presentations.", fabric: "Pure Cotton", care: "Dry clean recommended" },
+    { id: 2, name: "Corporate Chic", category: "office", price: "2,799", colors: ["#000000", "#8b4513", "#2f4f4f"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1741847639057-b51a25d42892?fm=jpg&q=60&w=600&h=800&crop=80&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4.9, reviews: 89, description: "Minimalist design meets maximum impact. Perfect for board meetings and client presentations.", fabric: "Pure Cotton", care: "Dry clean recommended" },
     { id: 3, name: "Executive Grace", category: "office", price: "2,999", colors: ["#2c2c2c", "#4a5568", "#1c3d5a"], sizes: ["S", "M", "L", "XL", "XXL"], image: "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=600&h=800&fit=crop&q=80", rating: 5.0, reviews: 156, description: "Commanding presence with elegant simplicity. Designed for leaders who mean business.", fabric: "Cotton Silk Blend", care: "Hand wash or dry clean" },
     { id: 4, name: "Boardroom Beauty", category: "office", price: "2,599", colors: ["#1a1a1a", "#556b2f", "#483d8b"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=600&h=800&fit=crop&q=80", rating: 4.7, reviews: 98, description: "Structured silhouette with refined details. Makes every workday feel like a power move.", fabric: "Poly Cotton", care: "Machine wash gentle" },
 
     // School Wear
     { id: 5, name: "Campus Comfort", category: "school", price: "1,299", colors: ["#e0e0e0", "#b0c4de", "#d8bfd8"], sizes: ["XS", "S", "M", "L"], image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&h=800&fit=crop&q=80", rating: 4.6, reviews: 203, description: "Designed for all-day comfort during lectures and study sessions. Breathable and easy to maintain.", fabric: "100% Cotton", care: "Machine washable" },
     { id: 6, name: "Study Chic", category: "school", price: "1,199", colors: ["#ffffff", "#add8e6", "#ffb6c1"], sizes: ["XS", "S", "M", "L"], image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=600&h=800&fit=crop&q=80", rating: 4.5, reviews: 167, description: "Youthful and vibrant, perfect for campus life. Combines style with practicality.", fabric: "Cotton", care: "Machine wash cold" },
-    { id: 7, name: "Academic Style", category: "school", price: "1,399", colors: ["#f5f5f5", "#87ceeb", "#dda0dd"], sizes: ["XS", "S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1585487000143-da2b21f68f59?w=600&h=800&fit=crop&q=80", rating: 4.7, reviews: 145, description: "Smart casual design for the discerning student. Effortlessly transitions from classroom to cafeteria.", fabric: "Cotton Blend", care: "Machine washable" },
+    { id: 7, name: "Academic Style", category: "school", price: "1,399", colors: ["#f5f5f5", "#87ceeb", "#dda0dd"], sizes: ["XS", "S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1669201161628-fe3c073c2773?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4.7, reviews: 145, description: "Smart casual design for the discerning student. Effortlessly transitions from classroom to cafeteria.", fabric: "Cotton Blend", care: "Machine washable" },
     { id: 8, name: "Lecture Hall Luxe", category: "school", price: "1,499", colors: ["#fafafa", "#b0e0e6", "#f0e68c"], sizes: ["XS", "S", "M", "L"], image: "https://images.unsplash.com/photo-1612722432474-b971cdcea546?w=600&h=800&fit=crop&q=80", rating: 4.8, reviews: 189, description: "Elevated everyday wear for the modern student. Comfortable enough for marathon study sessions.", fabric: "Premium Cotton", care: "Gentle machine wash" },
 
     // Casual/Semi-Formal
-    { id: 9, name: "Versatile Elegance", category: "casual", price: "2,299", colors: ["#2c2c2c", "#8b0000", "#191970"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1610030469985-3e93eb2e6a6e?w=600&h=800&fit=crop&q=80", rating: 4.9, reviews: 234, description: "The perfect balance between professional and party-ready. Your go-to for any occasion.", fabric: "Cotton Silk", care: "Dry clean recommended" },
-    { id: 10, name: "Evening Grace", category: "casual", price: "2,899", colors: ["#1a1a1a", "#800020", "#4b0082"], sizes: ["S", "M", "L", "XL", "XXL"], image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600&h=800&fit=crop&q=80", rating: 5.0, reviews: 178, description: "Sophisticated enough for cocktail parties, comfortable enough for office gatherings.", fabric: "Silk Blend", care: "Hand wash or dry clean" },
-    { id: 11, name: "Social Butterfly", category: "casual", price: "2,599", colors: ["#000000", "#c71585", "#483d8b"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1622069748769-a2d095a4eb05?w=600&h=800&fit=crop&q=80", rating: 4.8, reviews: 156, description: "Effortlessly chic for brunches, dinners, and everything in between.", fabric: "Cotton Silk Blend", care: "Machine wash gentle" },
+    { id: 9, name: "Versatile Elegance", category: "casual", price: "2,299", colors: ["#2c2c2c", "#8b0000", "#191970"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1693988100058-cf25a1b16001?q=80&w=435&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4.9, reviews: 234, description: "The perfect balance between professional and party-ready. Your go-to for any occasion.", fabric: "Cotton Silk", care: "Dry clean recommended" },
+    { id: 10, name: "Evening Grace", category: "casual", price: "2,899", colors: ["#1a1a1a", "#800020", "#4b0082"], sizes: ["S", "M", "L", "XL", "XXL"], image: "https://images.unsplash.com/photo-1678536514772-9febabd241fd?q=80&w=435&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 5.0, reviews: 178, description: "Sophisticated enough for cocktail parties, comfortable enough for office gatherings.", fabric: "Silk Blend", care: "Hand wash or dry clean" },
+    { id: 11, name: "Social Butterfly", category: "casual", price: "2,599", colors: ["#000000", "#c71585", "#483d8b"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1678536517469-02b36558b9fb?q=80&w=435&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", rating: 4.8, reviews: 156, description: "Effortlessly chic for brunches, dinners, and everything in between.", fabric: "Cotton Silk Blend", care: "Machine wash gentle" },
     { id: 12, name: "Occasion Ready", category: "casual", price: "3,199", colors: ["#1c1c1c", "#8b4789", "#2f4f4f"], sizes: ["S", "M", "L", "XL"], image: "https://images.unsplash.com/photo-1596783074918-c84cb06531ca?w=600&h=800&fit=crop&q=80", rating: 4.9, reviews: 201, description: "From office presentations to evening celebrations, this kurti does it all with grace.", fabric: "Premium Silk", care: "Dry clean only" },
   ];
 
@@ -87,21 +87,21 @@ export default function Collections() {
             >
               <div className="p-12 h-full flex flex-col">
                 <div className="mb-16">
-                  <h2 className="text-5xl font-cursive italic mb-2">Kurtify</h2>
+                  <a href="/" className="text-5xl font-cursive italic mb-2">Kurtify</a>
                   <p className="text-sm text-white/40 tracking-widest uppercase">Menu</p>
                 </div>
 
                 <nav className="flex-1 flex flex-col space-y-8">
-                  <a href="#" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
+                  <a href="/" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
                     Home
                   </a>
-                  <a href="#" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
+                  <a href="/collection" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
                     Collections
                   </a>
                   <a href="#" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
                     New Arrivals
                   </a>
-                  <a href="#" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
+                  <a href="/about" className="text-4xl font-serif-elegant hover:text-gray-400 transition-colors duration-300 border-b border-white/10 pb-4">
                     About
                   </a>
                 </nav>
@@ -120,7 +120,7 @@ export default function Collections() {
                     </div>
                     <User className="w-6 h-6 cursor-pointer hover:text-gray-400 transition-colors duration-300" />
                   </div>
-                  <p className="text-xs text-white/30 tracking-widest uppercase">© 2024 Kurtify</p>
+                  <p className="text-xs text-white/30 tracking-widest uppercase">© 2025 Kurtify</p>
                 </div>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function Collections() {
 
           {/* Logo */}
           <div className="fixed top-6 left-6 z-50">
-            <h1 className="text-4xl font-cursive italic tracking-wide">Kurtify</h1>
+            <a href="/" className="text-4xl font-cursive italic tracking-wide">Kurtify</a>
           </div>
 
           {/* Back Button */}
