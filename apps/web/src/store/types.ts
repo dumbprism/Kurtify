@@ -5,6 +5,7 @@ export interface Product {
     category: string;
     price: string;
     colors: string[];
+    colorImageMap: Record<string, string>;
     sizes: string[];
     image: string;
     rating: number;

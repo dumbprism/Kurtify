@@ -5,10 +5,9 @@ import { ShoppingBag, Heart, User, Search, ArrowRight, Menu, X, Sparkles } from 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { saleorClient } from "@/lib/saleor/client";
-import { GET_COLLECTIONS_QUERY, GET_PRODUCTS_QUERY } from "@/lib/saleor/queries";
+import { fetchAllProducts } from "@/lib/saleor/fetch-all-products";
 import { getProductImageUrl, PRODUCT_IMAGE_HEIGHT, PRODUCT_IMAGE_WIDTH } from "@/lib/saleor/images";
-import { getCollectionProductIds } from "@/lib/saleor/product-utils";
+import { isInCollection } from "@/lib/saleor/product-utils";
 import { SALEOR_CHANNEL } from "@/lib/saleor/config";
 
 export default function Home() {
@@ -16,17 +15,7 @@ export default function Home() {
   const router = useRouter();
   const { data: productData, isLoading: productsLoading } = useQuery({
     queryKey: ['products'],
-    queryFn: async () => saleorClient.request(GET_PRODUCTS_QUERY, {
-      first: 100,
-      channel: SALEOR_CHANNEL
-    }),
-  });
-  const { data: collectionsData } = useQuery({
-    queryKey: ["collections-for-home"],
-    queryFn: async () => saleorClient.request(GET_COLLECTIONS_QUERY, {
-      first: 50,
-      channel: SALEOR_CHANNEL,
-    }),
+    queryFn: async () => fetchAllProducts(SALEOR_CHANNEL),
   });
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -60,8 +49,7 @@ export default function Home() {
   ];
 
   const allProducts = (productData as any)?.products?.edges || [];
-  const featuredIds = getCollectionProductIds(collectionsData, "featured designs");
-  const featuredProducts = allProducts.filter(({ node }: any) => featuredIds.has(node.id));
+  const featuredProducts = allProducts.filter(({ node }: any) => isInCollection(node, "featured designs"));
   const marqueeProducts = featuredProducts.length > 0 ? featuredProducts : allProducts;
 
 

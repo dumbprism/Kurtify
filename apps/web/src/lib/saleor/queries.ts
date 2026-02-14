@@ -2,19 +2,46 @@
 import { gql } from 'graphql-request';
 
 export const GET_PRODUCTS_QUERY = gql`
-  query GetProducts($first: Int, $channel: String!) {
-    products(first: $first, channel: $channel) {
+  query GetProducts($first: Int, $channel: String!, $after: String) {
+    products(first: $first, channel: $channel, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       edges {
         node {
           id
+          updatedAt
           name
           description
           metadata {
             key
             value
           }
+          attributes {
+            attribute {
+              name
+              slug
+            }
+            values {
+              name
+              slug
+            }
+          }
           productType {
             name
+          }
+          variants {
+            attributes {
+              attribute {
+                name
+                slug
+              }
+              values {
+                name
+                slug
+              }
+            }
           }
           collections {
             name
@@ -22,6 +49,7 @@ export const GET_PRODUCTS_QUERY = gql`
           }
           media {
             url
+            alt
           }
           thumbnail {
             url

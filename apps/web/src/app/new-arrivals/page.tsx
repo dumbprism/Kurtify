@@ -5,10 +5,9 @@ import { useCartStore } from "@/store";
 import type { Product } from "@/store";
 import { toast } from "sonner";
 import { CartSidebar } from "@/components/cart-sidebar";
-import { saleorClient } from "@/lib/saleor/client";
-import { GET_COLLECTIONS_QUERY, GET_PRODUCTS_QUERY } from "@/lib/saleor/queries";
-import { getProductImageUrl, PRODUCT_IMAGE_HEIGHT, PRODUCT_IMAGE_WIDTH } from "@/lib/saleor/images";
-import { getCollectionProductIds, getProductRating } from "@/lib/saleor/product-utils";
+import { fetchAllProducts } from "@/lib/saleor/fetch-all-products";
+import { getColorImageMap, getProductImageUrl, PRODUCT_IMAGE_HEIGHT, PRODUCT_IMAGE_WIDTH } from "@/lib/saleor/images";
+import { getProductOptions, getProductRating, isInCollection } from "@/lib/saleor/product-utils";
 import { SALEOR_CHANNEL } from "@/lib/saleor/config";
 import { useQuery } from "@tanstack/react-query";
 
@@ -25,17 +24,7 @@ export default function NewArrivals() {
 
   const { data: productData, isLoading } = useQuery({
     queryKey: ['new-arrivals-products'],
-    queryFn: async () => saleorClient.request(GET_PRODUCTS_QUERY, {
-      first: 100,
-      channel: SALEOR_CHANNEL
-    }),
-  });
-  const { data: collectionsData } = useQuery({
-    queryKey: ["collections-for-new-arrivals"],
-    queryFn: async () => saleorClient.request(GET_COLLECTIONS_QUERY, {
-      first: 50,
-      channel: SALEOR_CHANNEL,
-    }),
+    queryFn: async () => fetchAllProducts(SALEOR_CHANNEL),
   });
 
   useEffect(() => {
@@ -44,9 +33,8 @@ export default function NewArrivals() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const newArrivalIds = getCollectionProductIds(collectionsData, "new arrivals");
   const products: Product[] = ((productData as any)?.products?.edges || []).map(({ node }: any) => {
-    if (!newArrivalIds.has(node.id)) {
+    if (!isInCollection(node, "new arrivals")) {
       return null;
     }
 
@@ -87,14 +75,17 @@ export default function NewArrivals() {
 
 
     const { rating, reviews } = getProductRating(node);
+    const { colors, sizes } = getProductOptions(node);
+    const colorImageMap = getColorImageMap(node, colors);
 
     return {
       id: node.id,
       name: node.name,
       category,
       price: node.pricing?.priceRange?.start?.gross?.amount?.toString() || "0",
-      colors: ["#000000", "#ffffff", "#808080"], // Mock colors
-      sizes: ["S", "M", "L", "XL"], // Mock sizes
+      colors,
+      colorImageMap,
+      sizes,
       image: getProductImageUrl(node),
       rating,
       reviews,
@@ -109,6 +100,9 @@ export default function NewArrivals() {
     : products.filter(p => p.category === activeCategory);
 
   if (selectedProduct) {
+    const selectedProductImage =
+      (selectedColor && selectedProduct.colorImageMap[selectedColor]) || selectedProduct.image;
+
     return (
       <>
         <div className="min-h-screen bg-black text-white">
@@ -196,7 +190,7 @@ export default function NewArrivals() {
                 {/* Product Image */}
                 <div className="relative aspect-[3/4] bg-gray-900">
                   <img
-                    src={selectedProduct.image}
+                    src={selectedProductImage}
                     alt={selectedProduct.name}
                     width={PRODUCT_IMAGE_WIDTH}
                     height={PRODUCT_IMAGE_HEIGHT}
@@ -251,13 +245,27 @@ export default function NewArrivals() {
                     <p className="text-xs uppercase tracking-widest mb-4 text-white/60">Select Color</p>
                     <div className="flex gap-3">
                       {selectedProduct.colors.map((color, idx) => (
-                        <button
-                          key={idx}
-                          onClick={() => setSelectedColor(color)}
-                          className={`w-10 h-10 border-2 transition-all ${selectedColor === color ? 'border-white scale-110' : 'border-white/30'
-                            }`}
-                          style={{ backgroundColor: color }}
-                        />
+                        /^#[0-9a-fA-F]{6}$/.test(color) ? (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedColor(color)}
+                            className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === color ? 'border-white scale-110' : 'border-white/30 hover:border-white'
+                              }`}
+                            style={{ backgroundColor: color }}
+                            title={color}
+                          >
+                            <span className="sr-only">{color}</span>
+                          </button>
+                        ) : (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedColor(color)}
+                            className={`px-4 h-10 border text-xs uppercase tracking-widest transition-all ${selectedColor === color ? 'border-white bg-white text-black' : 'border-white/30 hover:border-white'
+                              }`}
+                          >
+                            {color}
+                          </button>
+                        )
                       ))}
                     </div>
                   </div>
@@ -527,6 +535,7 @@ export default function NewArrivals() {
                 onClick={() => {
                   setSelectedProduct(product);
                   setSelectedColor(product.colors[0]);
+                  setSelectedSize(product.sizes[0] ?? "Free");
                   window.scrollTo(0, 0);
                 }}
               >
