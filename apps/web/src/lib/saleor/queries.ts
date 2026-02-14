@@ -74,7 +74,7 @@ export const GET_COLLECTIONS_QUERY = gql`
           id
           name
           slug
-          products(first: 200) {
+          products(first: 100) {
             edges {
               node {
                 id
