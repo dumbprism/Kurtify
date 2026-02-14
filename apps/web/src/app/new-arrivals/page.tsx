@@ -7,13 +7,11 @@ import { toast } from "sonner";
 import { CartSidebar } from "@/components/cart-sidebar";
 import { fetchAllProducts } from "@/lib/saleor/fetch-all-products";
 import { getColorImageMap, getProductImageUrl, PRODUCT_IMAGE_HEIGHT, PRODUCT_IMAGE_WIDTH } from "@/lib/saleor/images";
-import { getProductOptions, getProductRating } from "@/lib/saleor/product-utils";
+import { getProductOptions, getProductRating, isInCollection } from "@/lib/saleor/product-utils";
 import { SALEOR_CHANNEL } from "@/lib/saleor/config";
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 
-export default function Collections() {
-  const searchParams = useSearchParams();
+export default function NewArrivals() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
@@ -22,11 +20,10 @@ export default function Collections() {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [cartOpen, setCartOpen] = useState(false);
-  const [hasOpenedFromQuery, setHasOpenedFromQuery] = useState(false);
   const { addItem, getTotalItems } = useCartStore();
 
   const { data: productData, isLoading } = useQuery({
-    queryKey: ['collection-products'],
+    queryKey: ['new-arrivals-products'],
     queryFn: async () => fetchAllProducts(SALEOR_CHANNEL),
   });
 
@@ -36,7 +33,11 @@ export default function Collections() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const products: Product[] = (productData as any)?.products?.edges.map(({ node }: any) => {
+  const products: Product[] = ((productData as any)?.products?.edges || []).map(({ node }: any) => {
+    if (!isInCollection(node, "new arrivals")) {
+      return null;
+    }
+
     const productTypeName = node.productType?.name?.toLowerCase().trim() || "";
     const category = productTypeName === "office wear kurti"
       ? "office"
@@ -92,27 +93,11 @@ export default function Collections() {
       fabric: "Cotton Blend", // Mock fabric
       care: "Machine wash cold", // Mock care
     };
-  }) || [];
+  }).filter(Boolean) as Product[];
 
   const filteredProducts = activeCategory === "all"
     ? products
     : products.filter(p => p.category === activeCategory);
-
-  useEffect(() => {
-    if (hasOpenedFromQuery || products.length === 0 || selectedProduct) return;
-
-    const productId = searchParams.get("productId");
-    if (!productId) return;
-
-    const matchedProduct = products.find((p) => String(p.id) === productId);
-    if (!matchedProduct) return;
-
-    setSelectedProduct(matchedProduct);
-    setSelectedColor(matchedProduct.colors[0] ?? null);
-    setSelectedSize(matchedProduct.sizes[0] ?? "Free");
-    setHasOpenedFromQuery(true);
-    window.scrollTo(0, 0);
-  }, [hasOpenedFromQuery, products, searchParams, selectedProduct]);
 
   if (selectedProduct) {
     const selectedProductImage =
@@ -190,7 +175,6 @@ export default function Collections() {
           <button
             onClick={() => {
               setSelectedProduct(null);
-              window.history.replaceState({}, "", "/collection");
               window.scrollTo(0, 0);
             }}
             className="fixed top-24 left-6 z-50 text-sm uppercase tracking-widest hover:text-gray-400 transition-colors flex items-center gap-2"
@@ -484,7 +468,7 @@ export default function Collections() {
         <section className="relative h-screen flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900/50 to-black opacity-60 z-10"></div>
           <div className="absolute inset-0" style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&h=1080&fit=crop")',
+            backgroundImage: 'url("https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=1920&h=1080&fit=crop")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             filter: 'grayscale(30%) contrast(1.1)'
@@ -494,7 +478,7 @@ export default function Collections() {
             <div className="flex justify-center mb-6">
             </div>
             <h2 className="text-7xl md:text-8xl lg:text-9xl font-serif-elegant mb-6 tracking-tight leading-none">
-              Collections
+              New Arrivals
             </h2>
             <p className="text-xl md:text-2xl font-cursive italic text-white/80 mb-12 tracking-wide">
               Curated elegance for every occasion
