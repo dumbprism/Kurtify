@@ -13,7 +13,6 @@
     "check-types": "turbo check-types",
     "dev:native": "turbo -F native dev",
     "dev:web": "turbo -F web dev",
-    "dev:cms": "turbo -F cms dev",
     "dev:server": "turbo -F server dev",
     "db:push": "turbo -F @kurtify/db db:push",
     "db:studio": "turbo -F @kurtify/db db:studio",

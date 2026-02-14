@@ -1,6 +1,6 @@
 // Product type based on the existing product structure in collection page
 export interface Product {
-    id: number;
+    id: string | number;
     name: string;
     category: string;
     price: string;
